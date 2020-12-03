@@ -8,7 +8,6 @@ class Interface:
         self.best_score = pygame.Rect(164, 260, 64, 32)
         self.instructions_btn = pygame.Rect(0, 288, 256, 32)
         self.row_3 = pygame.Rect(0, 300, 256, 32)
-        # self.instructions = False
         self.show_completed = False
         self.font_24 = pygame.font.SysFont("Monaco", 28, bold=False, italic=False)
         self.font_16 = pygame.font.SysFont("Monaco", 16, bold=False, italic=False)
@@ -27,6 +26,7 @@ class Interface:
         window.blit(moves, self.moves_used_box)
         window.blit(best_score, self.best_score)
         window.blit(instructions_1, self.instructions_btn)
+        game_board.draw(window)
 
     def draw_instructions(self, window):
         instructions = \
@@ -52,6 +52,5 @@ class Interface:
                     run = False
             pygame.display.update()
 
-    def solved(self, window, game_board):
+    def solved(self, game_board):
         game_board.update_best()
-        # game_board

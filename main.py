@@ -19,7 +19,6 @@ interface = Interface()
 def redraw_game_window():
     win.fill((0, 0, 0))
     interface.draw(win, game_board)
-    game_board.draw(win)
     pygame.display.update()
 
 
@@ -48,7 +47,7 @@ def main():
 
                 game_board.check_solved()
                 if game_board.is_solved:
-                    interface.solved(win, game_board)
+                    interface.solved(game_board)
 
                     print(f"Congratulations!!! Completed in {game_board.moves} "
                           f"moves.")
