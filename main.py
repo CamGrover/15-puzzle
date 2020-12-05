@@ -1,19 +1,9 @@
-import pygame
 import os
+import pygame
 from game_board import GameBoard
 from interface import Interface
-
-
-pygame.init()
-win_width = 256
-win_height = 320
-win = pygame.display.set_mode((win_width, win_height))
-pygame.display.set_caption("The 15 Puzzle")
-clock = pygame.time.Clock()
-
-
-game_board = GameBoard()
-interface = Interface()
+import constants
+from my_game import win, interface, pygame, game_board, clock
 
 
 def redraw_game_window():
@@ -28,13 +18,12 @@ def main():
     run = True
     while run:
         clock.tick(60)
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
 
             elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                moves = game_board.viable_moves()
+                moves = game_board.get_viable_moves()
                 pos = pygame.mouse.get_pos()
                 for tile in moves:
                     if tile.box.collidepoint(pos):

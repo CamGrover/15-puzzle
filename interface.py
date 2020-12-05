@@ -3,14 +3,17 @@ from blit_text import blit_text
 
 
 class Interface:
-    def __init__(self):
+    def __init__(self, window):
+        self.window = window
         self.moves_used_box = pygame.Rect(4, 260, 64, 32)
         self.best_score = pygame.Rect(164, 260, 64, 32)
         self.instructions_btn = pygame.Rect(0, 288, 256, 32)
         self.row_3 = pygame.Rect(0, 300, 256, 32)
         self.show_completed = False
-        self.font_24 = pygame.font.SysFont("Monaco", 28, bold=False, italic=False)
-        self.font_16 = pygame.font.SysFont("Monaco", 16, bold=False, italic=False)
+        self.font_24 = pygame.font.SysFont("Monaco", 28, bold=False,
+                                           italic=False)
+        self.font_16 = pygame.font.SysFont("Monaco", 16, bold=False,
+                                           italic=False)
 
     def draw(self, window, game_board):
         black = pygame.color.Color(0, 0, 0)
@@ -52,5 +55,9 @@ class Interface:
                     run = False
             pygame.display.update()
 
+    def draw_solved(self, window):
+        pass
+
     def solved(self, game_board):
         game_board.update_best()
+        self.draw_solved(self.window)
