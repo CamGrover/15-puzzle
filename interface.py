@@ -16,8 +16,10 @@ class Interface:
                                            italic=False)
 
     def draw(self, game_board):
+        # Define colors
         black = pygame.color.Color(0, 0, 0)
         white = pygame.color.Color(255, 255, 255)
+        # Generate text
         moves = self.font_24.render(
             f"Moves: {game_board.moves}", True, white, black)
         best_score = self.font_24.render(
@@ -26,6 +28,7 @@ class Interface:
             "Show Instructions",
             True, black, white
         )
+        # Draw window
         self.window.blit(moves, self.moves_used_box)
         self.window.blit(best_score, self.best_score)
         self.window.blit(instructions_1, self.instructions_btn)
