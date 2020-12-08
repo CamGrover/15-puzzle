@@ -8,7 +8,7 @@ from my_game import win, interface, pygame, game_board, clock
 
 def redraw_game_window():
     win.fill((0, 0, 0))
-    interface.draw(win, game_board)
+    interface.draw(game_board)
     pygame.display.update()
 
 
@@ -21,34 +21,25 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
             elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 moves = game_board.get_viable_moves()
                 pos = pygame.mouse.get_pos()
-                for tile in moves:
-                    if tile.box.collidepoint(pos):
-                        # print(tile.number)
-                        game_board.move(game_board.tiles.index(tile))
-                        break
-
                 if interface.instructions_btn.collidepoint(pos):
                     interface.instructions(win)
-
-                game_board.check_solved()
-                if game_board.is_solved:
-                    interface.solved(game_board)
-
-                    print(f"Congratulations!!! Completed in {game_board.moves} "
-                          f"moves.")
-                    print(game_board.history)
-
-            elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_SPACE:
+                    break
+                for tile in moves:
+                    if tile.box.collidepoint(pos):
+                        game_board.move(game_board.tiles.index(tile))
+                        break
+                if game_board.check_solved():
+                    game_board.update_best()
+            else:
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_SPACE]:
                     game_board.restart()
-        # keys = pygame.key.get_pressed()
-
+                # if keys[pygame.K_r] and keys[pygame.K_BACKQUOTE]:  # Cheat
+                #     interface.solved(game_board)
         redraw_game_window()
-
     pygame.quit()
 
 

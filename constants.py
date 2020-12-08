@@ -1,3 +1,4 @@
 BLANK = 16
 WIN_WIDTH = 256
 WIN_HEIGHT = 320
+FILENAME = '.score'

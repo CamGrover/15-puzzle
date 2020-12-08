@@ -15,7 +15,7 @@ class Interface:
         self.font_16 = pygame.font.SysFont("Monaco", 16, bold=False,
                                            italic=False)
 
-    def draw(self, window, game_board):
+    def draw(self, game_board):
         black = pygame.color.Color(0, 0, 0)
         white = pygame.color.Color(255, 255, 255)
         moves = self.font_24.render(
@@ -26,17 +26,20 @@ class Interface:
             "Show Instructions",
             True, black, white
         )
-        window.blit(moves, self.moves_used_box)
-        window.blit(best_score, self.best_score)
-        window.blit(instructions_1, self.instructions_btn)
-        game_board.draw(window)
+        self.window.blit(moves, self.moves_used_box)
+        self.window.blit(best_score, self.best_score)
+        self.window.blit(instructions_1, self.instructions_btn)
+        game_board.draw(self.window)
+        if game_board.is_solved:
+            self.draw_solved(game_board.best_score.best_score,
+                             game_board.moves)
 
-    def draw_instructions(self, window):
+    def draw_instructions(self):
         instructions = \
             "Slide tiles until they are in increasing order with the blank " \
-            "in the last space.\nPress space to restart." \
+            "in the last space.\nPress (space) to restart." \
             "\n\n(Press any key or click to return)"
-        blit_text(window, instructions, (20, 20), self.font_24,
+        blit_text(self.window, instructions, (20, 20), self.font_24,
                   color=pygame.color.Color(255, 255, 255))
 
     def instructions(self, window):
@@ -44,7 +47,7 @@ class Interface:
         while run:
             pygame.time.Clock().tick(60)
             window.fill((0, 0, 0))
-            self.draw_instructions(window)
+            self.draw_instructions()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -55,9 +58,28 @@ class Interface:
                     run = False
             pygame.display.update()
 
-    def draw_solved(self, window):
-        pass
-
-    def solved(self, game_board):
-        game_board.update_best()
-        self.draw_solved(self.window)
+    def draw_solved(self, best: int, moves: int):
+        rect = pygame.Rect(0, 64, 256, 128)
+        if moves < best:
+            text = f"Congratulations!!! You beat the best score of {best}. " \
+                   f"New best solution is {moves}."
+        else:
+            text = f"Nice try! Solution took {moves} moves. Current best is " \
+                   f"{best}."
+        text += "\nPress (space) to play again."
+        self.window.fill((0, 0, 0), rect=rect)
+        blit_text(self.window, text, (20, 70), self.font_24,
+                  color=pygame.Color('white'))
+        pygame.display.update()
+    #
+    # def solved(self, game_board):
+    #     run = True
+    #     while run:
+    #         for event in pygame.event.get():
+    #             if event.type == pygame.QUIT:
+    #                 run = False
+    #             elif event.type == pygame.KEYUP:
+    #                 if event.key == pygame.K_SPACE:
+    #                     game_board.restart()
+    #                     run = False
+    #         self.draw_solved(game_board.best_score.best_score, game_board.moves)

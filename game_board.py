@@ -2,6 +2,7 @@ import os
 import json
 from tile import Tile
 from verify_solution import verify
+from constants import FILENAME
 
 
 def rect_position(i):
@@ -87,6 +88,7 @@ class GameBoard:
         for i in range(0, 16):
             if self.goal[i] != self.tiles[i].number:
                 solved = False
+                break
         self.is_solved = solved
         if solved:
             self.disabled = True
@@ -105,6 +107,7 @@ class GameBoard:
     def restart(self):
         self.mix_up(
             [7, 15, 6, 2, 1, 9, 11, 4, 5, 13, 12, 3, 14, 10, 8, 16])
+        self.is_solved = False
         self.moves = 0
         self.disabled = False
         self.history = []
@@ -114,11 +117,10 @@ class GameBoard:
             self.best_score = BestScore(
                 self.moves, self.history, self.start, self.goal)
         try:
-            filename = ".score"
-            file = open(filename, "w")
-            file.write(self.best_score.toJson())
+            with open(FILENAME, 'w') as file:
+                file.write(self.best_score.toJson())
         except FileNotFoundError:
-            print("Cannot find score file")
+            print("Cannot write to score file")
 
     def get_best_score(self):
         return self.best_score.best_score
@@ -140,25 +142,27 @@ class GameBoard:
         )
 
     def init_best_score(self):
-        filename = ".score"
         try:
             # Attempt ot create new file
-            file = open(filename, "x")
-            self.set_default_best_score()
-            file.write(self.best_score.toJson())
-            file.close()
+            with open(FILENAME, 'x') as file:
+                self.set_default_best_score()
+                file.write(self.best_score.toJson())
+                file.close()
 
         except FileExistsError:
-            file = open(filename, "r")
-            score_json = file.readline()
-            self.best_score = BestScore()
-            # self.best_score.__dict__ = json.loads(score_json)
-            best_score = BestScore()
-            best_score.__dict__ = json.loads(score_json)
-            if verify(best_score.best_score, best_score.history,
-                      best_score.start, best_score.goal):
-                self.best_score = best_score
-                print("Verified")
-            else:
-                self.set_default_best_score()
-                print("Score import failed")
+            try:
+                with open(FILENAME, 'r') as file:
+                    score_json = file.readline()
+                    self.best_score = BestScore()
+                    # self.best_score.__dict__ = json.loads(score_json)
+                    best_score = BestScore()
+                    best_score.__dict__ = json.loads(score_json)
+                    if verify(best_score.best_score, best_score.history,
+                              best_score.start, best_score.goal):
+                        self.best_score = best_score
+                        print("Verified")
+                    else:
+                        self.set_default_best_score()
+                        print("Score import failed")
+            except FileNotFoundError:
+                pass
