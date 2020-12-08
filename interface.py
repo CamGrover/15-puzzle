@@ -34,10 +34,10 @@ class Interface:
         self.window.blit(instructions_1, self.instructions_btn)
         game_board.draw(self.window)
         if game_board.is_solved:
-            self.draw_solved(game_board.best_score.best_score,
-                             game_board.moves)
+            self._draw_solved(game_board.best_score.best_score,
+                              game_board.moves)
 
-    def draw_instructions(self):
+    def _draw_instructions(self):
         instructions = \
             "Slide tiles until they are in increasing order with the blank " \
             "in the last space.\nPress (space) to restart." \
@@ -45,23 +45,7 @@ class Interface:
         blit_text(self.window, instructions, (20, 20), self.font_24,
                   color=pygame.color.Color(255, 255, 255))
 
-    def instructions(self, window):
-        run = True
-        while run:
-            pygame.time.Clock().tick(60)
-            window.fill((0, 0, 0))
-            self.draw_instructions()
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    run = False
-                elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                    run = False
-                elif event.type == pygame.KEYUP:
-                    run = False
-            pygame.display.update()
-
-    def draw_solved(self, best: int, moves: int):
+    def _draw_solved(self, best: int, moves: int):
         rect = pygame.Rect(0, 64, 256, 128)
         if moves < best:
             text = f"Congratulations!!! You beat the best score of {best}. " \
@@ -74,3 +58,19 @@ class Interface:
         blit_text(self.window, text, (20, 70), self.font_24,
                   color=pygame.Color('white'))
         pygame.display.update()
+
+    def instructions(self, window):
+        run = True
+        while run:
+            pygame.time.Clock().tick(60)
+            window.fill((0, 0, 0))
+            self._draw_instructions()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+                elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                    run = False
+                elif event.type == pygame.KEYUP:
+                    run = False
+            pygame.display.update()
