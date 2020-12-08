@@ -71,15 +71,3 @@ class Interface:
         blit_text(self.window, text, (20, 70), self.font_24,
                   color=pygame.Color('white'))
         pygame.display.update()
-    #
-    # def solved(self, game_board):
-    #     run = True
-    #     while run:
-    #         for event in pygame.event.get():
-    #             if event.type == pygame.QUIT:
-    #                 run = False
-    #             elif event.type == pygame.KEYUP:
-    #                 if event.key == pygame.K_SPACE:
-    #                     game_board.restart()
-    #                     run = False
-    #         self.draw_solved(game_board.best_score.best_score, game_board.moves)
