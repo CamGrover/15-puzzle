@@ -14,12 +14,13 @@ def viable_move(graph, tile):
 def verify(moves: int, solution: [int], start: [int], end: [int]) -> bool:
     if moves != len(solution):
         return False
-
     graph = generate_graph(start)
     for el in solution:
         if viable_move(graph, el):
             graph[el], graph[16] = \
                 graph[16], graph[el]
+        else:
+            return False
     for i, el in enumerate(end):
         if graph[el] != i:
             return False
