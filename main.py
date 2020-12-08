@@ -1,8 +1,3 @@
-import os
-import pygame
-from game_board import GameBoard
-from interface import Interface
-import constants
 from my_game import win, interface, pygame, game_board, clock
 
 
@@ -13,7 +8,6 @@ def redraw_game_window():
 
 
 def main():
-    # game_board.mix_up([3, 1, 2, 5, 4, 6, 8, 7, 9, 13, 12, 11, 10, 15, 16, 14])
     game_board.restart()
     run = True
     while run:
@@ -37,8 +31,6 @@ def main():
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_SPACE]:
                     game_board.restart()
-                # if keys[pygame.K_r] and keys[pygame.K_BACKQUOTE]:  # Cheat
-                #     interface.solved(game_board)
         redraw_game_window()
     pygame.quit()
 
