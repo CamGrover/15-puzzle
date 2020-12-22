@@ -42,12 +42,14 @@ class GameModel:
             image = os.path.join("imgs", "tile_" + str(i + 1) + ".png")
             x, y = rect_position(i)
             self.tiles.append(Tile(i + 1, image, x, y))
+        self.blank = self.tiles[15]
         self.best_score = BestScore()
         self.init_best_score()
 
     def idx_blank(self):
-        return self.tiles.index(next(filter(
-            lambda a: a.number == 16, self.tiles)))
+        return self.tiles.index(self.blank)
+        # return self.tiles.index(next(filter(
+        #     lambda a: a.number == 16, self.tiles)))
 
     def get_viable_moves(self) -> []:
         if self.disabled:
