@@ -2,7 +2,7 @@ import pygame
 from blit_text import blit_text
 
 
-class Interface:
+class GameView:
     def __init__(self, window):
         self.window = window
         self.moves_used_box = pygame.Rect(4, 260, 64, 32)
@@ -59,12 +59,10 @@ class Interface:
                   color=pygame.Color('white'))
         pygame.display.update()
 
-    def instructions(self, window):
+    def instructions(self):
         run = True
         while run:
             pygame.time.Clock().tick(60)
-            window.fill((0, 0, 0))
-            self._draw_instructions()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -73,4 +71,8 @@ class Interface:
                     run = False
                 elif event.type == pygame.KEYUP:
                     run = False
+
+            self.window.fill((0, 0, 0))
+            self._draw_instructions()
+
             pygame.display.update()
