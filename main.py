@@ -7,6 +7,9 @@ from events import TickEvent, EventManager, QuitEvent
 from cpu_spinner_controller import CPUSpinnerController
 
 
+# Source: MVC and Observer/Mediator in Pygame
+# Title: sjbrown's Writing Games Tutorial
+# URL: http://ezide.com/games/writing-games.html
 def main():
     pygame.init()
 
