@@ -5,6 +5,9 @@ from game_controller import GameController
 from constants import WIN_WIDTH, WIN_HEIGHT
 from events import TickEvent, EventManager, QuitEvent
 from cpu_spinner_controller import CPUSpinnerController
+import os
+
+os.environ['SDL_AUDIODRIVER'] = 'dsp'
 
 
 # Source: MVC and Observer/Mediator in Pygame
