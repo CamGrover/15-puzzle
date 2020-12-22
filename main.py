@@ -1,5 +1,5 @@
 import pygame
-from game_board import GameBoard
+from game_model import GameModel
 from game_view import GameView
 from game_controller import GameController
 from constants import WIN_WIDTH, WIN_HEIGHT
@@ -10,14 +10,13 @@ from cpu_spinner_controller import CPUSpinnerController
 def main():
     pygame.init()
 
-    win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     pygame.display.set_caption("The 15 Puzzle")
+    win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     clock = pygame.time.Clock()
     event_manager = EventManager()
-    game_board = GameBoard()
+    game_board = GameModel()
     game_view = GameView(win)
     spinner = CPUSpinnerController(event_manager, clock)
-    game_board.restart()
     game_controller = GameController(game_board, game_view)
 
     event_manager.registerListener(TickEvent(), game_controller)

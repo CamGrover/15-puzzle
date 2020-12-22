@@ -29,7 +29,7 @@ class BestScore:
         return json.dumps(self, default=lambda o: o.__dict__)
 
 
-class GameBoard:
+class GameModel:
     def __init__(self):
         self.disabled = False
         self.is_solved = False
