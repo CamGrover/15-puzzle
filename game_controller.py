@@ -3,7 +3,6 @@ import json
 from verify_solution import verify
 from constants import FILENAME
 from events import TickEvent, QuitEvent
-
 from best_score import BestScore
 
 
