@@ -33,7 +33,6 @@ class GameModel:
     def __init__(self):
         self.disabled = False
         self.is_solved = False
-        # self.best_score = 88
         self.moves = 0
         self.history = []
         self.start = []
@@ -78,10 +77,6 @@ class GameModel:
         self.swap(self.idx_blank(), tile_idx)
         # Update game counters
         self.moves += 1
-
-    def draw(self, window):
-        for tile in self.tiles:
-            tile.draw(window)
 
     def check_solved(self):
         solved = True

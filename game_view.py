@@ -32,7 +32,10 @@ class GameView:
         self.window.blit(moves, self.moves_used_box)
         self.window.blit(best_score, self.best_score)
         self.window.blit(instructions_1, self.instructions_btn)
-        game_board.draw(self.window)
+        # Draw tiles
+        for tile in game_board.tiles:
+            tile.draw(self.window)
+
         if game_board.is_solved:
             self._draw_solved(game_board.best_score.best_score,
                               game_board.moves)
