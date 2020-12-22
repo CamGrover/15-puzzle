@@ -29,6 +29,7 @@ class GameView:
             True, black, white
         )
         # Draw window
+        self.window.fill((0, 0, 0))  # Clear screen
         self.window.blit(moves, self.moves_used_box)
         self.window.blit(best_score, self.best_score)
         self.window.blit(instructions_1, self.instructions_btn)
