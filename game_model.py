@@ -29,6 +29,3 @@ class GameModel:
 
     def idx_blank(self):
         return self.tiles.index(self.blank)
-
-    def get_best_score(self):
-        return self.best_score.best_score

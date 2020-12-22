@@ -23,7 +23,7 @@ class GameView:
         moves = self.font_24.render(
             f"Moves: {game_board.moves}", True, white, black)
         best_score = self.font_24.render(
-            f"Best: {game_board.get_best_score()}", True, white, black)
+            f"Best: {game_board.best_score.best_score}", True, white, black)
         instructions_1 = self.font_24.render(
             "Show Instructions",
             True, black, white
